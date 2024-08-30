@@ -32,22 +32,22 @@ model User {
 model Project {
   id            String   @id @default(uuid())
   name          String
-  description   String
+  description   String?
   delivery_date DateTime
   created_at    DateTime @default(now())
 
-  tasks Task[]
-
   User    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id String
+  
+  tasks Task[]
 }
 
 model Task {
   id          String   @id @default(uuid())
   name        String
-  description String
+  description String?
   created_at  DateTime @default(now())
-  status      Status
+  status      Status   @default(TODO)
 
   Project    Project @relation(fields: [project_id], references: [id], onDelete: Cascade)
   project_id String
