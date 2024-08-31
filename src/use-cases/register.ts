@@ -13,7 +13,7 @@ type RegisterUseCaseResponse = {
   user: User
 }
 
-export class Register {
+export class RegisterUseCase {
   constructor(private userRepository: UserRepository) {}
 
   async execute({

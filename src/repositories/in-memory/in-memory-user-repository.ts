@@ -2,7 +2,6 @@ import { User } from '@prisma/client'
 import {
   UserCreateInput,
   UserRepository,
-  UserUpdateInput,
 } from '../user-repository'
 import { randomUUID } from 'crypto'
 
@@ -41,33 +40,33 @@ export class InMemoryUserRepository implements UserRepository {
     return user
   }
 
-  async update(id: string, data: UserUpdateInput) {
-    const userIndex = this.items.findIndex((item) => item.id === id)
+  // async update(id: string, data: UserUpdateInput) {
+  //   const userIndex = this.items.findIndex((item) => item.id === id)
 
-    if (userIndex === -1) {
-      return null
-    }
+  //   if (userIndex === -1) {
+  //     return null
+  //   }
 
-    const updatedUser: User = {
-      ...this.items[userIndex],
-      ...data,
-    }
+  //   const updatedUser: User = {
+  //     ...this.items[userIndex],
+  //     ...data,
+  //   }
 
-    this.items[userIndex] = updatedUser
+  //   this.items[userIndex] = updatedUser
 
-    return updatedUser
-  }
+  //   return updatedUser
+  // }
 
-  async delete(id: string) {
-    const userIndex = this.items.findIndex((item) => item.id === id)
-    const user = this.items[userIndex]
+  // async delete(id: string) {
+  //   const userIndex = this.items.findIndex((item) => item.id === id)
+  //   const user = this.items[userIndex]
 
-    if (userIndex === -1) {
-      return null
-    }
+  //   if (userIndex === -1) {
+  //     return null
+  //   }
 
-    this.items.splice(userIndex, 1)
+  //   this.items.splice(userIndex, 1)
 
-    return user
-  }
+  //   return user
+  // }
 }
