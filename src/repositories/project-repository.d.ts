@@ -6,7 +6,7 @@ export type ProjectUpdateInput = Omit<Partial<Project>, 'id' | 'created_at'>
 
 export interface ProjectRepository {
   create(data: ProjectCreateInput): Promise<Project>
-  findById(id): Promise<Project | null>
+  findById(id: string): Promise<Project | null>
   findManyByUserId(userId: string): Promise<Project[]>
   update(
     id: string,
