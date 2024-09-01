@@ -1,8 +1,7 @@
 import { UserRepository } from '@/repositories/user-repository'
 import { User } from '@prisma/client'
-import { compare, hash } from 'bcryptjs'
-import { UserAlreadyExistsError } from './errors/user-already-exists-error'
-import { InvalidCredentialsError } from './errors/invalid-credentials-error'
+import { compare } from 'bcryptjs'
+import { InvalidCredentialsError } from '../errors/invalid-credentials-error'
 
 type AuthenticateUseCaseRequest = {
   email: string

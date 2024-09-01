@@ -1,8 +1,8 @@
 import { UserRepositoryImpl } from '@/repositories/prisma/user-repository-impl'
-import { AuthenticateUseCase } from '@/use-cases/authenticate'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { InvalidCredentialsError } from '@/use-cases/errors/invalid-credentials-error'
+import { AuthenticateUseCase } from '@/use-cases/user/authenticate'
 
 export async function authenticate(
   request: FastifyRequest,
@@ -29,8 +29,9 @@ export async function authenticate(
       {
         sign: {
           sub: user.id,
+          expiresIn: '1m'
         },
-      }
+      },
     )
     return reply.status(200).send({
       token,

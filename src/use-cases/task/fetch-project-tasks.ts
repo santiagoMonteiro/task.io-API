@@ -1,8 +1,8 @@
 import { Task } from '@prisma/client'
 import { TaskRepository } from '@/repositories/task-repository'
 import { ProjectRepository } from '@/repositories/project-repository'
-import { ResourceNotFoundError } from './errors/resource-not-found-error'
-import { InvalidCredentialsError } from './errors/invalid-credentials-error'
+import { ResourceNotFoundError } from '../errors/resource-not-found-error'
+import { InvalidCredentialsError } from '../errors/invalid-credentials-error'
 
 type FetchProjectTasksUseCaseRequest = {
   userId: string

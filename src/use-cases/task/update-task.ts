@@ -1,7 +1,7 @@
 import { Task } from '@prisma/client'
 import { TaskRepository } from '@/repositories/task-repository'
-import { ResourceNotFoundError } from './errors/resource-not-found-error'
-import { InvalidCredentialsError } from './errors/invalid-credentials-error'
+import { ResourceNotFoundError } from '../errors/resource-not-found-error'
+import { InvalidCredentialsError } from '../errors/invalid-credentials-error'
 import { ProjectRepository } from '@/repositories/project-repository'
 
 type UpdateTaskUseCaseRequest = {

@@ -1,7 +1,7 @@
 import { Project, User } from '@prisma/client'
 import { ProjectRepository } from '@/repositories/project-repository'
-import { ResourceNotFoundError } from './errors/resource-not-found-error'
-import { InvalidCredentialsError } from './errors/invalid-credentials-error'
+import { ResourceNotFoundError } from '../errors/resource-not-found-error'
+import { InvalidCredentialsError } from '../errors/invalid-credentials-error'
 
 type DeleteProjectUseCaseRequest = {
   id: string
