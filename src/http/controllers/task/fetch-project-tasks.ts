@@ -1,29 +1,37 @@
 import { ProjectRepositoryImpl } from '@/repositories/prisma/project-repository-impl'
+import { TaskRepositoryImpl } from '@/repositories/prisma/task-repository-impl'
 import { InvalidCredentialsError } from '@/use-cases/errors/invalid-credentials-error'
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
-import { GetProjectUseCase } from '@/use-cases/project/get-project'
+import { FetchProjectTasksUseCase } from '@/use-cases/task/fetch-project-tasks'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-export async function getProject(request: FastifyRequest, reply: FastifyReply) {
-  const getProjectParamsSchema = z.object({
+export async function fetchProjectTasks(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
+  const fetchProjectTasksParamsSchema = z.object({
     projectId: z.string().uuid(),
   })
 
-  const { projectId } = getProjectParamsSchema.parse(request.params)
-
+  const { projectId } = fetchProjectTasksParamsSchema.parse(request.params)
 
   try {
     const projectRepository = new ProjectRepositoryImpl()
-    const getProjectUseCase = new GetProjectUseCase(projectRepository)
+    const taskRepository = new TaskRepositoryImpl()
 
-    const { project } = await getProjectUseCase.execute({
-      id: projectId,
+    const fetchUserTasksUseCase = new FetchProjectTasksUseCase(
+      projectRepository,
+      taskRepository
+    )
+
+    const { tasks } = await fetchUserTasksUseCase.execute({
       userId: request.user.sub,
+      projectId,
     })
 
     return reply.status(200).send({
-      project
+      tasks,
     })
   } catch (err) {
     if (err instanceof ResourceNotFoundError) {

@@ -9,7 +9,7 @@ type FetchUserProjectsUseCaseResponse = {
   projects: Project[]
 }
 
-export class FetchProjectTasksUseCase {
+export class FetchUserProjectsUseCase {
   constructor(private projectRepository: ProjectRepository) {}
 
   async execute({

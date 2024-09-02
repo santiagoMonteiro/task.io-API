@@ -13,7 +13,7 @@ export async function deleteProject(
     projectId: z.string().uuid(),
   })
 
-  const { projectId } = deleteProjectBodySchema.parse(request.body)
+  const { projectId } = deleteProjectBodySchema.parse(request.params)
 
   try {
     const projectRepository = new ProjectRepositoryImpl()

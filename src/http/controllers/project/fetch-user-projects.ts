@@ -1,29 +1,20 @@
 import { ProjectRepositoryImpl } from '@/repositories/prisma/project-repository-impl'
 import { InvalidCredentialsError } from '@/use-cases/errors/invalid-credentials-error'
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
-import { GetProjectUseCase } from '@/use-cases/project/get-project'
+import { FetchUserProjectsUseCase } from '@/use-cases/project/fetch-user-projects'
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { z } from 'zod'
 
-export async function getProject(request: FastifyRequest, reply: FastifyReply) {
-  const getProjectParamsSchema = z.object({
-    projectId: z.string().uuid(),
-  })
-
-  const { projectId } = getProjectParamsSchema.parse(request.params)
-
-
+export async function fetchUserProjects(request: FastifyRequest, reply: FastifyReply) {
   try {
     const projectRepository = new ProjectRepositoryImpl()
-    const getProjectUseCase = new GetProjectUseCase(projectRepository)
+    const fetchUserProjectsUseCase = new FetchUserProjectsUseCase(projectRepository)
 
-    const { project } = await getProjectUseCase.execute({
-      id: projectId,
+    const { projects } = await fetchUserProjectsUseCase.execute({
       userId: request.user.sub,
     })
 
     return reply.status(200).send({
-      project
+      projects
     })
   } catch (err) {
     if (err instanceof ResourceNotFoundError) {
