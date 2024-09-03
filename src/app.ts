@@ -5,8 +5,13 @@ import { env } from './env'
 import fastifyJwt from '@fastify/jwt'
 import { projectRoutes } from './http/controllers/project/routes'
 import { taskRoutes } from './http/controllers/task/routes'
+import cors from '@fastify/cors'
 
 export const app = fastify()
+
+app.register(cors, {
+  origin: '*'
+})
 
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
